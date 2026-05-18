@@ -179,3 +179,23 @@ if not df.empty:
             
 else:
     st.info("データを保存すると、ここに自動で成功率のグラフが生成されます。")
+
+
+# --- 8. 【超重要】データのバックアップ機能 ---
+st.divider()
+st.subheader("💾 データの管理")
+
+if not df.empty:
+    # データをCSVに変換
+    csv_data = df.to_csv(index=False).encode('utf-8')
+    
+    # スマホにダウンロードするボタン
+    st.download_button(
+        label="📥 登録データをスマホに保存 (CSV)",
+        data=csv_data,
+        file_name=f"molkky_backup_{datetime.now().strftime('%Y%m%d')}.csv",
+        mime='text/csv',
+        width='stretch' # 2026年最新仕様の幅調整
+    )
+else:
+    st.caption("データが登録されると、ここにバックアップ用のダウンロードボタンが表示されます。")
